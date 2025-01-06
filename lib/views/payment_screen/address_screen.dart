@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:flutter_app_2/consts/consts.dart';
 import 'package:flutter_app_2/views/payment_screen/payment_screen.dart';
+
 import 'add_address_screen.dart'; // Adjust the import based on your project structure
 
 class AddressScreen extends StatefulWidget {
@@ -124,7 +125,7 @@ class _ShowAddressScreenState extends State<AddressScreen> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: lightGolden),
                       onPressed: () {
-                        Get.to(() => PaymentScreen()); // Navigate to payment screen
+                        Get.to(() => const PaymentScreen()); // Navigate to payment screen
                       },
                       child: Text('Proceed to Payment', style: TextStyle(color: redColor)),
                     ),

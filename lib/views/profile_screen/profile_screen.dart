@@ -1,7 +1,6 @@
 import 'package:flutter_app_2/consts/consts.dart';
 import 'package:flutter_app_2/views/auth_screen/login_screen.dart';
-import 'package:flutter_app_2/views/order_screen/order_screen.dart';
-import 'package:flutter_app_2/views/order_screen/favourite_screen.dart';
+import 'package:flutter_app_2/views/home_screen/components/details_card.dart';
 import 'package:flutter_app_2/widgets_common/bg_widget.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,8 +40,6 @@ class ProfileScreen extends StatelessWidget {
               }
 
               final userData = snapshot.data!;
-              final String userId = FirebaseAuth.instance.currentUser!.uid;  // Get the userId
-
               return Column(
                 children: [
                   // Edit profile button
@@ -52,11 +49,11 @@ class ProfileScreen extends StatelessWidget {
                       alignment: Alignment.topRight,
                       child: Icon(Icons.edit, color: whiteColor)
                           .onTap(() {
-                        // Handle edit profile action
-                      }),
+                            // Handle edit profile action
+                          }),
                     ),
                   ),
-
+                  
                   // User details section
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -91,27 +88,32 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  // Button section
-                  5.heightBox,
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: lightGolden),
-                    onPressed: () {
-                      // Use the current userId to navigate to the OrderScreen
-                      Get.to(() => OrderScreen(userId: userId)); // Pass userId to OrderScreen
-                    },
-                    child: Text('Order History', style: TextStyle(color: redColor)),
+                  
+                  20.heightBox,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      detailsCard(count: "00", title: "in your cart", width: context.screenWidth / 3.4),
+                      detailsCard(count: "35", title: "in your wishlist", width: context.screenWidth / 3.4),
+                      detailsCard(count: "142", title: "your order", width: context.screenWidth / 3.4),
+                    ],
                   ),
-
-                  5.heightBox,
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: lightGolden),
-                    onPressed: () {
-                      // Use the current userId to navigate to the OrderScreen
-                      Get.to(() => const FavoriteScreen()); // Pass userId to OrderScreen
+                  
+                  // Button section
+                  10.heightBox,
+                  ListView.separated(
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) {
+                      return const Divider(color: lightGrey);
                     },
-                    child: Text('Favourite ', style: TextStyle(color: redColor)),
-                  )
+                    itemCount: profileButtonsList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        leading: Image.asset(profileButtonsIcon[index], width: 22),
+                        title: profileButtonsList[index].text.fontFamily(semibold).color(darkFontGrey).make(),
+                      );
+                    },
+                  ).box.white.rounded.margin(const EdgeInsets.all(12)).padding(const EdgeInsets.symmetric(horizontal: 16)).shadowSm.make().box.color(redColor).make(),
                 ],
               );
             },

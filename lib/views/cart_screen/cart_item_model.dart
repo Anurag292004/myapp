@@ -1,5 +1,5 @@
 class CartItem {
-  final String id;
+  final String id; // Product ID
   final String title;
   final double price;
   int quantity;
@@ -29,3 +29,5 @@ class CartItem {
     };
   }
 }
+
+
